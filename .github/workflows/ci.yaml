@@ -20,6 +20,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set environment variables
+        run: |
+          echo "BASE_URL=http://localhost:8888/mystore/" >> $GITHUB_ENV
+          echo "BROWSER=headlesschrome" >> $GITHUB_ENV
+          echo "DB_PORT=8889" >> $GITHUB_ENV
+          echo "DB_HOST=localhost" >> $GITHUB_ENV
+          echo "DB_DATABASE=mystore" >> $GITHUB_ENV
+          echo "DB_TABLE_PREFIX=wp_" >> $GITHUB_ENV
+          echo "WOO_KEY=${{ secrets.WOO_KEY }}" >> $GITHUB_ENV
+          echo "WOO_SECRET=${{ secrets.WOO_SECRET }}" >> $GITHUB_ENV
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
