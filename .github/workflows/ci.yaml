@@ -44,4 +44,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest /home/runner/work/mystore-automation-framework/mystore-automation-framework/mystore_automation/tests/backend
+          pytest /Users/runner/work/mystore-automation-framework/mystore-automation-framework/mystore_automation/tests/backend
