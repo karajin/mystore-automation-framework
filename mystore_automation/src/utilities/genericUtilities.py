@@ -1,17 +1,18 @@
-"""
-Module for random unitilies. Helpful functions go here.
-Example:
-    generating random email
-
-"""
-
-
 import random
 import string
 import logging as logger
 
+def generate_random_string(length=10, prefix=None, suffix=None):
 
+    random_string = ''.join(random.choices(string.ascii_lowercase, k=length))
 
+    if prefix:
+        random_string = prefix + random_string
+    if suffix:
+        random_string = random_string + suffix
+
+    return random_string
+    
 def generate_random_email_and_password(domain='supersqa.com', email_prefix='testuser', elength=10):
     """
     Generates a random email and password combination.
@@ -32,6 +33,3 @@ def generate_random_email_and_password(domain='supersqa.com', email_prefix='test
 
     return random_info
 
-
-if __name__ == '__main__':
-    print(generate_random_email_and_password())

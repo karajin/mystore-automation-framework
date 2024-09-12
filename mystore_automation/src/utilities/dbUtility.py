@@ -1,16 +1,13 @@
-
-
 import pymysql
 import os
 import logging as logger
 from src.utilities.credentialsUtility import CredentialsUtility
 from src.configs.MainConfigs import MainConfigs
 
-class DBUtility(object):
+class DBUtility(CredentialsUtility):
 
     def __init__(self):
-        creds_helper = CredentialsUtility()
-        self.creds = creds_helper.get_db_credentials()
+        self.creds = self.get_db_credentials()
 
         self.db_configs = MainConfigs.get_db_configs()
         self.host = self.db_configs['db_host']
@@ -27,9 +24,7 @@ class DBUtility(object):
 
 
     def execute_select(self, sql):
-
         conn = self.create_connection()
-
         try:
             logger.debug(f"Executing: {sql}")
             cur = conn.cursor(pymysql.cursors.DictCursor)
@@ -43,6 +38,3 @@ class DBUtility(object):
 
         return rs_dict
 
-
-    def execute_sql(self, sql):
-        pass

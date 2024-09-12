@@ -36,3 +36,27 @@ def test_update_cutomer_info():
         #update the email
         #make the call
         #verify with the db
+
+
+@pytest.mark.customer
+@pytest.mark.tcid213
+def test_update_customer_invalid_data():
+        customer_helper = CustomerAPIHelper()
+        customer_dao = CustomersDAO()
+        customer = customer_dao.get_random_customer_from_db()
+        #rs_api = customer_helper.get_customer_by_id(customer[0]['ID'])
+
+        payload = {
+                  "first_name": "",
+                  "email": "invalid_email"
+        }
+
+        rs_api = customer_helper.update_customer_by_id(customer[0]['ID'], payload, status_code = 400)
+  
+        assert rs_api['code'] == 'rest_invalid_param'
+        assert rs_api['data'] == {'details': {'email': {'code': 'rest_invalid_email',
+                                'data': None,
+                                'message': 'Invalid email address.'}},
+          'params': {'email': 'Invalid email address.'},
+          'status': 400}
+        assert rs_api['message'] == 'Invalid parameter(s): email'
