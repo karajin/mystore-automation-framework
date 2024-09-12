@@ -13,8 +13,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-latest]  # Use the appropriate OS for your setup
     runs-on: ${{ matrix.os }}
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: mystore
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+        ports:
+          - 8889:3306  # Map container's port 3306 to host's port 8889
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     steps:
       - name: Checkout code
@@ -49,9 +65,9 @@ jobs:
       - name: Run backend tests
         run: |
           pytest ${{ github.workspace }}/mystore_automation/tests/backend
-          env:
+        env:
           DB_HOST: localhost
-          DB_PORT: 3306
+          DB_PORT: 8889  # Ensure this matches the port mapping
           DB_USER: root
           DB_PASSWORD: root
           DB_DATABASE: mystore
