@@ -67,7 +67,11 @@ jobs:
           pytest ${{ github.workspace }}/mystore_automation/tests/backend
         env:
           DB_HOST: localhost
+<<<<<<< Updated upstream
           DB_PORT: 8889  # Ensure this matches the port mapping
+=======
+          DB_PORT: 8889
+>>>>>>> Stashed changes
           DB_USER: root
           DB_PASSWORD: root
           DB_DATABASE: mystore
